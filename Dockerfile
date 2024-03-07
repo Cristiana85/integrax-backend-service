@@ -1,17 +1,7 @@
-FROM gradle:jdk17-alpine AS build
-
-COPY --chown=gradle:gradle . /home/gradle/src
-
-WORKDIR /src
-
-RUN gradle bootJar --no-daemon
-
-FROM gradle:jdk17-alpine
-
-RUN mkdir /app
-
-COPY --from=build /src/build/libs/*.jar /app/server-0.0.1-SNAPSHOT.jar
+FROM openjdk:17
+WORKDIR /integrax-backend-service
+CMD ["./gradlew", "clean", "bootJar"]
+COPY build/libs/*.jar app.jar
 
 EXPOSE 8080
-
-ENTRYPOINT ["java","-jar","/app/server-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://your-mongodb:27017/db-name", "-jar", "/app.jar"]
