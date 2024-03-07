@@ -1,0 +1,103 @@
+spring:
+  application:
+    name: integrax-backend-service
+  sql:
+    init:
+      mode: never
+      platform: postgres
+  datasource:
+    password: integrax
+    url: jdbc:postgresql://34.94.223.231:5432/integrax
+    username: postgres
+  jpa:
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, validate, update)
+      # - create: crea lo schema distruggendo i dati precedenti 
+      # - create-drop (default): crea e successivamente distrugge lo schema alla fine della sessione
+      # - validate: convalida lo schema, non apporta modifiche al database
+      # - update: aggiorna lo schema
+      ddl-auto: validate
+    properties:
+      hibernate:
+        #hibernate.jdbc.time_zone: UTC
+        #format_sql: true
+        #dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: false
+  liquibase:
+    enabled: false
+    change-log: classpath:db_migration/db_changelog.xml
+    liquibase-schema: optiroutelogistics
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    openfeign:
+      client:
+        config:
+          framework:
+            url: localhost:5051
+          frameworkws:
+            url: localhost:5053
+          default:
+            connectTimeout: 160000000
+            readTimeout: 160000000
+server:  
+  port: 5060
+  
+# ==============================================================
+# = Security Params JWT 
+# ==============================================================
+security:
+    uri: /auth
+    refresh: /refresh
+    header: Authorization
+    prefix: Bearer 
+    expiration: 86400
+    #secret: ENC(NT6YC3xISrbUIg+h5y0Vb5eY20nCx3bc)
+    secret: T3B0aXQyMDIzIU9wdGl0MjAyMyFPcHRpdDIwMjMhT3B0aXQyMDIzIU9wdGl0MjAyMyFPcHRpdDIwMjMhT3B0aXQyMDIzIU9wdGl0MjAyMyFPcHRpdDIwMjMh
+
+language:
+    header: Accept-Language
+
+# ==============================================================
+# = Logging
+# ==============================================================
+logging:
+  level:
+    root: WARN
+    org.springframework.security: INFO
+    org.hibernate: INFO
+    org.springframework.web: INFO
+    com.optit.framework: DEBUG
+    com.optit.optiroute.logistics: DEBUG
+    #org.hibernate.SQL: DEBUG
+    #org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    #org.springframework.jdbc.core.StatementCreatorUtils: TRACE
+  #=========================
+  #=Scrittura su file
+  #=========================  
+  file:
+    name: "../logs/optirouteLogisticsBackendService.log"
+    max-size: 10MB        
+  #=========================
+  #=Pattern
+  #=========================
+  pattern:
+    #file: "%d{ dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{36}.%M - %msg%n"
+    #console: "%d{dd-MM-yyyy HH:mm:ss} [%t] %-5level %logger{36}.%M - %msg%n"
+    console: "%d{dd-MM-yyyy HH:mm:ss} %highlight(%-5level) [%12.12thread] %cyan(%-40.40logger{40}.%M) : %msg %n"
+
+#=========================
+#= OpenAPI
+#=========================
+springdoc:
+  api-docs:
+    path: "/api-docs"
+  swagger-ui:
+    path: "/swagger-ui"
+
+#=== ALLOWED ROUTES ===
+allowedRoutes: /internal/**, /api-docs/**, /swagger-ui/**
+#======================
