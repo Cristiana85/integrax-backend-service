@@ -3,7 +3,11 @@ plugins {
 	id 'war'
 	id 'org.springframework.boot' version '3.1.2'
 	id 'io.spring.dependency-management' version '1.1.2'
+	id 'com.bmuschko.docker-spring-boot-application' version '6.1.4'
 }
+
+import com.bmuschko.gradle.docker.tasks.image.*
+import com.bmuschko.gradle.docker.tasks.container.*
 
 group = 'com.integrax'
 version = '0.0.1-SNAPSHOT'
@@ -42,4 +46,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task createDockerFile(type: Dockerfile) {
+    from 'openjdk:17-jre-alpine'
+    copyFile jar.archiveFileName.get(), '/app/test_service.jar'
+    entryPoint 'java'
+    defaultCommand '-jar', '/app/test_service.jar'
+    exposePort 8080
 }
