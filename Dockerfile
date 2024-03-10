@@ -1,26 +1,7 @@
-FROM openjdk:21-slim
-
-RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /opt
+FROM openjdk:17
+WORKDIR /integrax-backend-service
+CMD ["./gradlew", "clean", "bootJar"]
+COPY build/libs/*.jar app.jar
 
 EXPOSE 8080
-
-ARG APPJAR=build/libs/integrax-backend-service-*.jar
-
-COPY ${APPJAR} integrax-backend-service-*.jar
-
-ENTRYPOINT ["java","-jar","integrax-backend-service-*.jar"]
-
-# The below Docker code creates an executable jar and then creates an Docker Image out of it.
-#FROM gradle:8.5-jdk17 AS build
-#COPY --chown=gradle:gradle . /home/gradle/src
-#WORKDIR /home/gradle/src
-#RUN gradle build -x test --no-daemon
-
-#FROM openjdk:17-slim AS production
-#EXPOSE 8080
-#RUN mkdir /app
-#COPY --from=build /home/gradle/src/build/libs/*.jar /app/companieshouse-*.jar
-#ENTRYPOINT ["java","-jar","app/companieshouse-*.jar"]
-
+ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://your-mongodb:27017/db-name", "-jar", "/app.jar"]
