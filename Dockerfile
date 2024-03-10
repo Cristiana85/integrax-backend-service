@@ -14,4 +14,4 @@ COPY --from=build /home/gradle/src/build/libs/*.jar /app/integrax-backend-servic
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/app/server-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/app/integrax-backend-service-0.0.1-SNAPSHOT.jar"]
