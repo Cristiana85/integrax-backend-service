@@ -1,5 +1,4 @@
-FROM openjdk:8-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-COPY --from=build /home/app/target/war_name.war app.war
-ENTRYPOINT ["java","-jar","/app.war"]
+FROM openjdk:17-alpine
+MAINTAINER optit.net
+COPY build/libs/integrax-backend-service.jar ./integrax-backend-service.jar
+ENTRYPOINT ["java","-jar","./integrax-backend-service.jar"]
