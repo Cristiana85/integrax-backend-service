@@ -20,7 +20,6 @@ steps:
     - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
     - '--region'
     - '$_REGION'
-    - '8080'
 images:
 - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
 # [END cloudbuild_gradle]
