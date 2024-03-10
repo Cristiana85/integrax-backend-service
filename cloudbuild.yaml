@@ -3,26 +3,24 @@ steps:
   - name: gradle:8-jdk17
     entrypoint: gradle
     args: ["test"]
-  - name: gradle:8-jdk17
-    entrypoint: gradle
-    args: ["assemble"]
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA', '.']
+  # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA']
-  #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-   # entrypoint: gcloud
-    #args:
-    #- 'run'
-    #-'deploy'
-    #- '$_BINARY_NAME'
-    #- '--allow-unauthenticated'
-    #- '--image'
-    #- 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
-    #- '--region'
-    #- '$_REGION'
-    #- '--port'
-    #- '8080'
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - '$_BINARY_NAME'
+    - '--allow-unauthenticated'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
+    - '--region'
+    - '$_REGION'
+    - '8080'
 images:
 - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
 # [END cloudbuild_gradle]
