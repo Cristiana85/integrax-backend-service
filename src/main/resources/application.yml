@@ -5,9 +5,9 @@ spring:
     init:
       mode: never
       platform: postgres
-  datasource:
+  #datasource:
     password: integrax
-    url: jdbc:postgresql://localhost:5432/integrax
+    url: jdbc:postgresql://integrax-416811:us-central1:integrax
     username: postgres
   jpa:
     hibernate:
