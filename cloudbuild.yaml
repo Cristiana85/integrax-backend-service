@@ -11,7 +11,6 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA']
 images:
-- 'us.gcr.io/$PROJECT_ID/foobar:$COMMIT_SHA'
-- 'us.gcr.io/$PROJECT_ID/foobar:latest'
+- 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
 timeout: 3600s
 # [END cloudbuild_gradle]
