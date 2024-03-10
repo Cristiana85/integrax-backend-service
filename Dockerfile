@@ -16,5 +16,5 @@
 #ENTRYPOINT ["java","-jar","app/companieshouse-*.jar"]
 
 FROM openjdk:8-jdk
-ADD build/libs/integrax-backend-service-0.0.1.jar integrax-backend-service-0.0.1.jar
+ADD integrax-backend-service/build/libs/integrax-backend-service-0.0.1.jar integrax-backend-service-0.0.1.jar
 CMD ["java", "-jar", "integrax-backend-service-0.0.1.jar"]
