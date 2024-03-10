@@ -1,17 +1,11 @@
-FROM gradle:jdk17-alpine AS build
-
+# The below Docker code creates an executable jar and then creates an Docker Image out of it.
+FROM gradle:8.5-jdk17 AS build
 COPY --chown=gradle:gradle . /home/gradle/src
-
 WORKDIR /home/gradle/src
+RUN gradle build -x test --no-daemon
 
-RUN gradle bootJar --no-daemon
-
-FROM gradle:jdk17-alpine
-
-RUN mkdir /app
-
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/integrax-backend-service-0.0.1-SNAPSHOT.jar
-
+FROM openjdk:17-slim AS production
 EXPOSE 8080
-
-ENTRYPOINT ["java","-jar","/app/integrax-backend-service-0.0.1-SNAPSHOT.jar"]
+RUN mkdir /app
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/companieshouse-*.jar
+ENTRYPOINT ["java","-jar","app/companieshouse-*.jar"]
