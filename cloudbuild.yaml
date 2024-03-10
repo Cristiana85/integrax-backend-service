@@ -1,11 +1,22 @@
 steps:
-- name: gradle:7.6-jdk17
-  entrypoint: gradle
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/spring-boot', '.']
-images: ['gcr.io/$PROJECT_ID/spring-boot']
-
-steps:
-- name: gradle:7.6-jdk17
-  entrypoint: gradle
-  args: ['build']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/<my-google-cloud-project>/sampleapp', '.' , '-f', 'Dockerfile']
+    timeout: 600s
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/<my-google-cloud-project>/sampleapp']
+  # Deploy an image from Container Registry to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'sampleapp-cloud-run'
+      - '--image'
+      - 'gcr.io/<my-google-cloud-project>/sampleapp'
+      - '--region'
+      - 'asia-east1'
+      - '--platform'
+      - 'managed'
+      - '--port'
+      - '8080'
+      - '--allow-unauthenticated'
+timeout: 5000s
