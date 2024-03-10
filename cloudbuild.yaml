@@ -1,4 +1,11 @@
 steps:
 - name: gradle:7.6-jdk17
   entrypoint: gradle
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/spring-boot', '.']
+images: ['gcr.io/$PROJECT_ID/spring-boot']
+
+steps:
+- name: gradle:7.6-jdk17
+  entrypoint: gradle
   args: ['build']
