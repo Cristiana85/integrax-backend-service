@@ -10,7 +10,7 @@ ARG APPJAR=build/libs/integrax-backend-service-*.jar
 
 COPY ${APPJAR} integrax-backend-service-*.jar
 
-ENTRYPOINT ["java","-jar","companieshouse-*.jar"]
+ENTRYPOINT ["java","-jar","integrax-backend-service-*.jar"]
 
 # The below Docker code creates an executable jar and then creates an Docker Image out of it.
 #FROM gradle:8.5-jdk17 AS build
