@@ -6,9 +6,9 @@ WORKDIR /opt
 
 EXPOSE 8080
 
-ARG APPJAR=build/libs/companieshouse-*.jar
+ARG APPJAR=build/libs/integrax-backend-service-*.jar
 
-COPY ${APPJAR} companieshouse-*.jar
+COPY ${APPJAR} integrax-backend-service-*.jar
 
 ENTRYPOINT ["java","-jar","companieshouse-*.jar"]
 
