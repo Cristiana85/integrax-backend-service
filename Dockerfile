@@ -14,7 +14,6 @@ RUN chown -R gradle /home/gradle/src
     
 RUN gradle build || return 0
 COPY . .
-RUN gradle clean build
     
 # actual container
 FROM adoptopenjdk/openjdk11:alpine-jre
