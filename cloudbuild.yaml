@@ -23,5 +23,5 @@ steps:
     - '80'
 images:
 - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
-- 'gcr.io/$PROJECT_ID/$_BINARY_NAME:foobar:latest'
+- 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA:latest'
 # [END cloudbuild_gradle]
