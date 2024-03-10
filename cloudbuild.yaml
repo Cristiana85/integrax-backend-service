@@ -6,7 +6,10 @@ steps:
   - name: gradle:8-jdk17
     entrypoint: gradle
     args: ["assemble"]
-  - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "eu.gcr.io/$PROJECT_ID/integrax-backend-service", "--build-arg=JAR_FILE=build/libs/integrax-backend-service-0.0.1-SNAPSHOT.jar", "."]
-images: ["eu.gcr.io/$PROJECT_ID/$_REPO_NAME/integrax-backend-service"]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us.gcr.io/$PROJECT_ID/foobar:$COMMIT_SHA', '-t', 'us.gcr.io/$PROJECT_ID/foobar:latest', '.' ]
+images:
+- 'us.gcr.io/$PROJECT_ID/foobar:$COMMIT_SHA'
+- 'us.gcr.io/$PROJECT_ID/foobar:latest'
+timeout: 3600s
 # [END cloudbuild_gradle]
