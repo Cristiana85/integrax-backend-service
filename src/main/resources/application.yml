@@ -7,7 +7,7 @@ spring:
       platform: postgres
   #datasource:
     password: integrax
-    url: jdbc:postgresql://integrax-416811:us-central1:integrax
+    url: jdbc:postgresql://151.81.18.170:5432/integrax
     username: postgres
   jpa:
     hibernate:
