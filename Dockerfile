@@ -1,27 +1,4 @@
-# using multistage docker build
-# ref: https://docs.docker.com/develop/develop-images/multistage-build/
-    
-# temp container to build using gradle
-FROM gradle:5.3.0-jdk-alpine AS TEMP_BUILD_IMAGE
-ENV APP_HOME=/app/
-WORKDIR $APP_HOME
-COPY build.gradle settings.gradle $APP_HOME
-  
-COPY gradle $APP_HOME/gradle
-COPY --chown=gradle:gradle . /home/gradle/src
-USER root
-RUN chown -R gradle /home/gradle/src
-    
-RUN gradle build || return 0
-COPY . .
-    
-# actual container
-FROM adoptopenjdk/openjdk11:alpine-jre
-ENV ARTIFACT_NAME=integrax-backend-service-0.0.1-SNAPSHOT.jar
-ENV APP_HOME=/app
-    
-WORKDIR $APP_HOME
-COPY integrax-backend-service-0.0.1-SNAPSHOT.jar /
-    
-EXPOSE 8080
-ENTRYPOINT exec java -jar ${ARTIFACT_NAME}
+FROM openjdk:19-jdk-alpine
+ARG JAR_FILE=JAR_FILE_MUST_BE_SPECIFIED_AS_BUILD_ARG
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-Djava.security.edg=file:/dev/./urandom","-jar","/app.jar"]

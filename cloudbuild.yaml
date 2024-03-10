@@ -1,7 +1,12 @@
+# [START cloudbuild_gradle]
 steps:
-  - name: 'gradle:8.5-jdk17'
-    entrypoint: 'gradle'
-    args: ['build', '-x', 'test']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--tag=gcr.io/$PROJECT_ID/spring-boot', '.']
-images: ['gcr.io/$PROJECT_ID/spring-boot']
+  - name: gradle:8-jdk17
+    entrypoint: gradle
+    args: ["test"]
+  - name: gradle:8-jdk17
+    entrypoint: gradle
+    args: ["assemble"]
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/hello-spring", "--build-arg=JAR_FILE=build/libs/hellospring-1.0.0.jar", "."]
+images: ["us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/hello-spring"]
+# [END cloudbuild_gradle]

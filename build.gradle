@@ -37,9 +37,3 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test' 
 }
 
-docker {
-    dependsOn bootJar
-    name "${project.group}/${jar.baseName}:${version}"
-    files bootJar.archivePath
-}
-
