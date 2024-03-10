@@ -1,5 +1,5 @@
 steps:
-- name: 'java:17'
+- name: 'jdk:17'
   env: ["GRADLE_USER_HOME=cache"]
   entrypoint: "bash"
   args: [ "-c", "./gradlew gate-web:installDist -x test"]
