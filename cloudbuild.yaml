@@ -20,7 +20,7 @@ steps:
     - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
     - '--region'
     - '$_REGION'
-    - '80'
+    - '8080'
 images:
 - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
 - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA:latest'
