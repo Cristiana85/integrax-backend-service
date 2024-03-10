@@ -1,7 +1,7 @@
-FROM eclipse-temurin:17
-ARG JAR_FILE=build/libs/*jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+#FROM eclipse-temurin:17
+#ARG JAR_FILE=build/libs/*jar
+#COPY ${JAR_FILE} app.jar
+#ENTRYPOINT ["java","-jar","/app.jar"]
 
 # The below Docker code creates an executable jar and then creates an Docker Image out of it.
 #FROM gradle:8.5-jdk17 AS build
@@ -14,3 +14,7 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 #RUN mkdir /app
 #COPY --from=build /home/gradle/src/build/libs/*.jar /app/companieshouse-*.jar
 #ENTRYPOINT ["java","-jar","app/companieshouse-*.jar"]
+
+FROM openjdk:8-jdk
+ADD build/libs/integrax-backend-service-0.0.1.jar integrax-backend-service-0.0.1.jar
+CMD ["java", "-jar", "integrax-backend-service-0.0.1.jar"]
