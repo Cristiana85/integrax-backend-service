@@ -7,9 +7,21 @@ steps:
     entrypoint: gradle
     args: ["assemble"]
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us.gcr.io/$PROJECT_ID/foobar:$COMMIT_SHA', '-t', 'us.gcr.io/$PROJECT_ID/foobar:latest', '.' ]
+    args: ['push', 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA']
+# Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - '$_BINARY_NAME'
+    - '--allow-unauthenticated'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
+    - '--region'
+    - '$_REGION'
+    - '80'
 images:
-- 'us.gcr.io/$PROJECT_ID/foobar:$COMMIT_SHA'
-- 'us.gcr.io/$PROJECT_ID/foobar:latest'
-timeout: 3600s
+- 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
+- 'gcr.io/$PROJECT_ID/$_BINARY_NAME:foobar:latest'
 # [END cloudbuild_gradle]
