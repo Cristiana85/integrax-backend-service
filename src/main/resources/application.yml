@@ -44,7 +44,7 @@ spring:
             connectTimeout: 160000000
             readTimeout: 160000000
 server:  
-  port: 5060
+  port: 8080
   
 # ==============================================================
 # = Security Params JWT 
