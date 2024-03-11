@@ -8,7 +8,7 @@ spring:
   datasource:
     password: integrax
     //url: jdbc:postgresql://104.198.204.46:5432/integrax
-    url: jdbc:mysql://google/integrax?cloudSqlInstance=integrax-416811:us-central1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
+    url: jdbc:postgresql://google/integrax?cloudSqlInstance=integrax-416811:us-central1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
     username: postgres
   jpa:
     hibernate:
