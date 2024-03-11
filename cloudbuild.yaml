@@ -13,11 +13,11 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'sampleapp-cloud-run'
+      - 'integrax-backend-gcl'
       - '--image'
       - 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA'
       - '--region'
-      - 'asia-east1'
+      - 'us-central1'
       - '--platform'
       - 'managed'
       - '--port'
