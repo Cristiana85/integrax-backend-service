@@ -1,5 +1,17 @@
-FROM openjdk:17
-WORKDIR /integrax-backend-service
-CMD ["./gradlew", "clean", "bootJar"]
-COPY build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-Dspring.datasource.url=jdbc:postgresql://104.198.204.46:5432/integrax", "-jar", "/app.jar"]
+FROM gradle:jdk21-alpine AS build
+
+COPY --chown=gradle:gradle . /home/gradle/src
+
+WORKDIR /home/gradle/src
+
+RUN gradle bootJar --no-daemon
+
+FROM gradle:jdk21-alpine
+
+RUN mkdir /app
+
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/server-0.0.1-SNAPSHOT.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/app/server-0.0.1-SNAPSHOT.jar"]
