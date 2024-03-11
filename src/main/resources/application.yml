@@ -6,10 +6,14 @@ spring:
       mode: never
       platform: postgres
   datasource:
-    password: integrax
-    //url: jdbc:postgresql://104.198.204.46:5432/integrax
-    url: jdbc:postgresql://104.198.204.46:5432/integrax
+    #url: jdbc:postgresql://104.198.204.46:5432/integrax
+    url: jdbc:postgresql:///postgres
     username: postgres
+    password: integrax
+    hikari:
+      data-source-properties:
+        sockerFactory: com.google.cloud.sql_postgres.SocketFactory
+        cloudSqlInstance: integrax-416811:us-central1:integrax
   jpa:
     hibernate:
       # Hibernate ddl auto (create, create-drop, validate, update)
@@ -22,7 +26,7 @@ spring:
       hibernate:
         #hibernate.jdbc.time_zone: UTC
         #format_sql: true
-        #dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        #dialect: org.hibernate.dialect.PostgresSQL10Dialect
         jdbc:
           lob:
             non_contextual_creation: true
