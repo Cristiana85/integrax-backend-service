@@ -7,7 +7,7 @@ spring:
       platform: postgres
   datasource:
     password: optitwork
-    url: jdbc:postgresql://localhost:5432/integrax
+    url: jdbc:postgresql://localhost:5437/INTEGRA
     username: postgres
   jpa:
     hibernate:
