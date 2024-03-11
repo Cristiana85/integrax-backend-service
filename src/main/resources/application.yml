@@ -6,7 +6,7 @@ spring:
       mode: never
       platform: postgres
   datasource:
-    password: optitwork
+    password: integrax
     url: jdbc:postgresql://104.198.204.46:5432/integrax
     username: postgres
   jpa:
