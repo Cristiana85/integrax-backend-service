@@ -29,6 +29,10 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// https://mvnrepository.com/artifact/com.google.cloud.sql/postgres-socket-factory
+	implementation 'com.google.cloud.sql:postgres-socket-factory:1.6.1'
+	
 }
 
 tasks.named('test') {
