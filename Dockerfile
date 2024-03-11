@@ -10,10 +10,10 @@ FROM gradle:jdk21-alpine
 
 RUN mkdir /app
 
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/server-0.0.1-SNAPSHOT.jar
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/demo-0.0.1-SNAPSHOT.jar
 
 ENV HOST 0.0.0.0
-ENV PORT 4200
+ENV PORT 8080
 
 EXPOSE ${PORT}
 
