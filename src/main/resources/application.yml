@@ -6,8 +6,8 @@ spring:
       mode: never
       platform: postgres
   datasource:
-    #url: jdbc:postgresql://104.198.204.46:5432/integrax
-    url: jdbc:postgresql:///postgres
+    url: jdbc:postgresql://104.198.204.46:5432/integrax
+    #url: jdbc:postgresql:///postgres
     username: postgres
     password: integrax
     hikari:
