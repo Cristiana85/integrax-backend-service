@@ -1,13 +1,13 @@
 spring:
   application:
-    name: integrax-backend-service
+    name: optiroute-logistics-service
   sql:
     init:
       mode: never
       platform: postgres
-  #datasource:
-    password: integrax
-    url: jdbc:postgresql://104.198.204.46:5432/integrax
+  datasource:
+    password: optitwork
+    url: jdbc:postgresql://localhost:5433/2023_01_24_OPTIROUTE_ORID
     username: postgres
   jpa:
     hibernate:
@@ -44,7 +44,7 @@ spring:
             connectTimeout: 160000000
             readTimeout: 160000000
 server:  
-  port: 8080
+  port: 5060
   
 # ==============================================================
 # = Security Params JWT 
