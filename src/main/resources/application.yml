@@ -17,7 +17,6 @@ spring:
       # - create-drop (default): crea e successivamente distrugge lo schema alla fine della sessione
       # - validate: convalida lo schema, non apporta modifiche al database
       # - update: aggiorna lo schema
-      default_schema: public
       ddl-auto: update
     properties:
       hibernate:

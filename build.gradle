@@ -35,5 +35,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test' 
+	
+	// https://mvnrepository.com/artifact/com.google.cloud.sql/postgres-socket-factory
+	implementation 'com.google.cloud.sql:postgres-socket-factory:1.16.0'
+	
 }
 
