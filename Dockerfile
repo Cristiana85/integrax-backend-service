@@ -12,6 +12,9 @@ RUN mkdir /app
 
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/server-0.0.1-SNAPSHOT.jar
 
-EXPOSE 8080
+ENV HOST 0.0.0.0
+ENV PORT 4200
+
+EXPOSE ${PORT}
 
 ENTRYPOINT ["java","-jar","/app/server-0.0.1-SNAPSHOT.jar"]
