@@ -6,14 +6,10 @@ spring:
       mode: never
       platform: postgres
   datasource:
-    url: jdbc:postgresql://104.198.204.46:5432/integrax
+    url: jdbc:postgresql://google/integrax?cloudSqlInstance=integrax-416811:us-central1:integrax&socketFactory=com.google.cloud.sql.postgres.SocketFactory
     #url: jdbc:postgresql:///postgres
     username: postgres
     password: integrax
-    hikari:
-      data-source-properties:
-        sockerFactory: com.google.cloud.sql_postgres.SocketFactory
-        cloudSqlInstance: integrax-416811:us-central1:integrax
   jpa:
     hibernate:
       # Hibernate ddl auto (create, create-drop, validate, update)
@@ -21,12 +17,13 @@ spring:
       # - create-drop (default): crea e successivamente distrugge lo schema alla fine della sessione
       # - validate: convalida lo schema, non apporta modifiche al database
       # - update: aggiorna lo schema
+      default_schema: public
       ddl-auto: update
     properties:
       hibernate:
         #hibernate.jdbc.time_zone: UTC
         #format_sql: true
-        #dialect: org.hibernate.dialect.PostgresSQL10Dialect
+        #dialect: org.hibernate.dialect.PostgreSQL10Dialect
         jdbc:
           lob:
             non_contextual_creation: true
