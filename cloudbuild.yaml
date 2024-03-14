@@ -21,8 +21,7 @@ steps:
       - '--platform'
       - 'managed'
       - '--port'
-      - '8080'
+      - '5052'
       - '--allow-unauthenticated'
-timeout: 5000s
 # [END cloudbuild_gradle]
 
