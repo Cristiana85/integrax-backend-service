@@ -113,6 +113,7 @@ public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app")
 				.allowedMethods(HttpMethod.GET.name(),
 						HttpMethod.POST.name(),
+						HttpMethod.OPTIONS.name(),
 						HttpMethod.DELETE.name())
 				.allowedHeaders(HttpHeaders.CONTENT_TYPE,
 						HttpHeaders.AUTHORIZATION);
