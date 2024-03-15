@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,13 +32,7 @@ import com.integrax.security.services.UserDetailsServiceImpl;
 // jsr250Enabled = true,
 // prePostEnabled = true) // by default
 public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
-	
-    @Value("${app.cors.origins}")
-    private String corsAllowedOrigins;
 
-    @Value("${app.cors.methods}")
-    private String corsAllowedMethods;
-    
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
@@ -91,43 +87,47 @@ public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 	//    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	//  }
 
- 	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/authenticate/verify/**").disable())
 		.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authorizeHttpRequests(auth -> 
-			auth.requestMatchers("/**").permitAll()
-				.requestMatchers("/authenticate/**").permitAll()
-				.anyRequest().authenticated() 
-		);
-		
+		auth.requestMatchers("/**").permitAll()
+		.requestMatchers("/authenticate/**").permitAll()
+		.anyRequest().authenticated() 
+				);
+
 		http.authenticationProvider(authenticationProvider());
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-		
-        return http.build();
+
+		return http.build();
 	}
-	
+
 	@Bean
 	public WebMvcConfigurer corsConfig() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-                .allowedOrigins(corsAllowedOrigins)
-                .allowedMethods(corsAllowedMethods);
-//				
+				 registry.addMapping("/**");
 //				registry.addMapping("/**")
-//				.allowedOrigins("http://localhost:4200",
-//						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app",
-//						"https://integrax-frontend-service-3hkbcb6pua-uc.a.run.app")
-//				.allowedMethods(HttpMethod.GET.name(),
-//						HttpMethod.POST.name(),
-//						HttpMethod.OPTIONS.name(),
-//						HttpMethod.DELETE.name())
-//				.allowedHeaders(HttpHeaders.CONTENT_TYPE,
-//						HttpHeaders.AUTHORIZATION);
+//					.allowedOrigins("*")
+//					.allowedMethods("GET", "POST", "OPTIONS", "PUT")
+//					.allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
+//						"Access-Control-Request-Headers")
+//					.exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+//					.allowCredentials(true).maxAge(3600);
+				//				registry.addMapping("/*")
+				//				.allowedOrigins("http://localhost:4200",
+				//						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app",
+				//						"https://integrax-frontend-service-3hkbcb6pua-uc.a.run.app")
+				//				.allowedMethods(HttpMethod.GET.name(),
+				//						HttpMethod.POST.name(),
+				//						HttpMethod.OPTIONS.name(),
+				//						HttpMethod.DELETE.name())
+				//				.allowedHeaders(HttpHeaders.CONTENT_TYPE,
+				//						HttpHeaders.AUTHORIZATION);
 			}
 		};
 	}
