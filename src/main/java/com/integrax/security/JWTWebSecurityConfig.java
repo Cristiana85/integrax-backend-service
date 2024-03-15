@@ -1,10 +1,9 @@
 package com.integrax.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,6 +30,13 @@ import com.integrax.security.services.UserDetailsServiceImpl;
 // jsr250Enabled = true,
 // prePostEnabled = true) // by default
 public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
+	
+    @Value("${app.cors.origins}")
+    private String corsAllowedOrigins;
+
+    @Value("${app.cors.methods}")
+    private String corsAllowedMethods;
+    
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
@@ -109,16 +115,19 @@ public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-				.allowedOrigins("http://localhost:4200",
-						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app",
-						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app/projects/",
-						"https://integrax-frontend-service-3hkbcb6pua-uc.a.run.app")
-				.allowedMethods(HttpMethod.GET.name(),
-						HttpMethod.POST.name(),
-						HttpMethod.OPTIONS.name(),
-						HttpMethod.DELETE.name())
-				.allowedHeaders(HttpHeaders.CONTENT_TYPE,
-						HttpHeaders.AUTHORIZATION);
+                .allowedOrigins(corsAllowedOrigins)
+                .allowedMethods(corsAllowedMethods);
+//				
+//				registry.addMapping("/**")
+//				.allowedOrigins("http://localhost:4200",
+//						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app",
+//						"https://integrax-frontend-service-3hkbcb6pua-uc.a.run.app")
+//				.allowedMethods(HttpMethod.GET.name(),
+//						HttpMethod.POST.name(),
+//						HttpMethod.OPTIONS.name(),
+//						HttpMethod.DELETE.name())
+//				.allowedHeaders(HttpHeaders.CONTENT_TYPE,
+//						HttpHeaders.AUTHORIZATION);
 			}
 		};
 	}
