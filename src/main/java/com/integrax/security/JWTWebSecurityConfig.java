@@ -111,6 +111,7 @@ public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 				registry.addMapping("/**")
 				.allowedOrigins("http://localhost:4200",
 						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app",
+						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app/projects/",
 						"https://integrax-frontend-service-3hkbcb6pua-uc.a.run.app")
 				.allowedMethods(HttpMethod.GET.name(),
 						HttpMethod.POST.name(),
