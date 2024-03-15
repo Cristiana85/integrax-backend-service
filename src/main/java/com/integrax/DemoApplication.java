@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import jakarta.annotation.PostConstruct;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages= {"com.optit.integrax"})
 public class DemoApplication {
 
 	public static void main(String[] args) {
