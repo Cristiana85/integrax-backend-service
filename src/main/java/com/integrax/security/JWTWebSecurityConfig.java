@@ -1,7 +1,5 @@
 package com.integrax.security;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -106,42 +101,14 @@ public class JWTWebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
 		return http.build();
 	}
-	
-	@Bean   
-	public CorsConfigurationSource corsConfigurationSource() {
-	    CorsConfiguration configuration = new CorsConfiguration();
-	    configuration.setAllowedOrigins(Arrays.asList("*")); //or * if you want to allow all 
-	    configuration.setAllowCredentials(true);
-	    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-	    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", configuration); 
-	    return source; 
-	}
 
 	@Bean
 	public WebMvcConfigurer corsConfig() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				 registry.addMapping("/**");
-//				registry.addMapping("/**")
-//					.allowedOrigins("*")
-//					.allowedMethods("GET", "POST", "OPTIONS", "PUT")
-//					.allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
-//						"Access-Control-Request-Headers")
-//					.exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
-//					.allowCredentials(true).maxAge(3600);
-				//				registry.addMapping("/*")
-				//				.allowedOrigins("http://localhost:4200",
-				//						"https://integrax-backend-gcl-3hkbcb6pua-uc.a.run.app",
-				//						"https://integrax-frontend-service-3hkbcb6pua-uc.a.run.app")
-				//				.allowedMethods(HttpMethod.GET.name(),
-				//						HttpMethod.POST.name(),
-				//						HttpMethod.OPTIONS.name(),
-				//						HttpMethod.DELETE.name())
-				//				.allowedHeaders(HttpHeaders.CONTENT_TYPE,
-				//						HttpHeaders.AUTHORIZATION);
+				registry.addMapping("/**")
+				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
 			}
 		};
 	}
